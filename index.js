@@ -12,22 +12,48 @@ const inputs = document.getElementsByTagName("input")
 function getVal(el) {
 	return parseFloat(el.value)
 }
-function calc() {
-	let al2 = getVal(al)
-	let alsw2 = getVal(alsw)
-	let alblank2 = getVal(alblank)
-	let mlzn2 = getVal(mlzn)
-
-	let ba2 = getVal(ba)
-	let basw2 = getVal(basw)
-	let bablank2 = getVal(bablank)
-	let mlnaoh2 = getVal(mlnaoh)
-
-	let comb = al2 * basw2
-
-	mlzn.value = Math.round((alblank2 - (al2 * alsw2) / 0.2549) * 10) / 10
-	mlnaoh.value = Math.round((bablank2 - (ba2 * comb) / 85.1199) * 10) / 10
-}
 Array.from(inputs).forEach((element) => {
-	element.addEventListener("input", () => calc())
+	element.addEventListener("keydown", function (event) {
+		if (event.key !== "Enter") {
+			return
+		}
+		let al2 = getVal(al)
+		let alsw2 = getVal(alsw)
+		let alblank2 = getVal(alblank)
+		let mlzn2 = getVal(mlzn)
+
+		let ba2 = getVal(ba)
+		let basw2 = getVal(basw)
+		let bablank2 = getVal(bablank)
+		let mlnaoh2 = getVal(mlnaoh)
+
+		let comb = al2 * basw2
+
+		//mlzn.value
+		let finalmlzn = Math.round((alblank2 - (al2 * alsw2) / 0.2549) * 10) / 10
+
+		//mlnaoh.value
+		let finalmlnaoh = Math.round((bablank2 - (ba2 * comb) / 85.1199) * 10) / 10
+
+		//alsw.value
+		let finalalsw =
+			Math.round((((alblank2 - mlzn2) * 0.2549) / al2) * 1000) / 1000
+
+		//basw.value
+		let finalbasw =
+			Math.round((((bablank2 - mlnaoh2) * 85.1199) / (al2 * ba2)) * 1000) / 1000
+
+		if (!isNaN(finalmlzn)) {
+			mlzn.value = finalmlzn
+		}
+		if (!isNaN(finalmlnaoh)) {
+			mlnaoh.value = finalmlnaoh
+		}
+		if (!isNaN(finalalsw)) {
+			alsw.value = finalalsw
+		}
+		if (!isNaN(finalbasw)) {
+			basw.value = finalbasw
+		}
+	})
 })
