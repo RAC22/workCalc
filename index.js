@@ -48,7 +48,8 @@ Array.from(inputs).forEach((element) => {
 			if (!isNaN(finalmlnaoh)) {
 				mlnaoh.value = finalmlnaoh
 			}
-		} else {
+		}
+		if (solveForSW) {
 			if (!isNaN(finalalsw)) {
 				alsw.value = finalalsw
 			}
