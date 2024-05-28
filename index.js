@@ -13,10 +13,9 @@ function getVal(el) {
 	return parseFloat(el.value)
 }
 Array.from(inputs).forEach((element) => {
-	element.addEventListener("keydown", function (event) {
-		if (event.key !== "Enter") {
-			return
-		}
+	element.addEventListener("input", function (event) {
+		const solveForSW = document.getElementById("Sample Weight").checked
+		const solveForML = document.getElementById("ML titrated").checked
 		let al2 = getVal(al)
 		let alsw2 = getVal(alsw)
 		let alblank2 = getVal(alblank)
@@ -42,18 +41,20 @@ Array.from(inputs).forEach((element) => {
 		//basw.value
 		let finalbasw =
 			Math.round((((bablank2 - mlnaoh2) * 85.1199) / (al2 * ba2)) * 1000) / 1000
-
-		if (!isNaN(finalmlzn)) {
-			mlzn.value = finalmlzn
-		}
-		if (!isNaN(finalmlnaoh)) {
-			mlnaoh.value = finalmlnaoh
-		}
-		if (!isNaN(finalalsw)) {
-			alsw.value = finalalsw
-		}
-		if (!isNaN(finalbasw)) {
-			basw.value = finalbasw
+		if (solveForML) {
+			if (!isNaN(finalmlzn)) {
+				mlzn.value = finalmlzn
+			}
+			if (!isNaN(finalmlnaoh)) {
+				mlnaoh.value = finalmlnaoh
+			}
+		} else {
+			if (!isNaN(finalalsw)) {
+				alsw.value = finalalsw
+			}
+			if (!isNaN(finalbasw)) {
+				basw.value = finalbasw
+			}
 		}
 	})
 })
